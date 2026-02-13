@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title><!-- Romantic Google Font --><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet"><style>
+body{
+    margin:0;
+    font-family: 'Great Vibes', cursive;
+    text-align:center;
+    color:white;
+    background: url('bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow-x:hidden;
+}
+
+/* Floating Hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:22px;
+    animation:floatUp linear infinite;
+    opacity:0.8;
+    z-index:0;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0); opacity:1;}
+    to{transform:translateY(-110vh); opacity:0;}
+}
+
+.container{
+    position:relative;
+    z-index:1;
+    max-width:400px;
+    margin:auto;
+    padding:20px;
+    background: rgba(0,0,0,0.45);
+    min-height:100vh;
+}
+
+/* Lock Screen */
+#lockScreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:10;
+}
+
+input{
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    font-size:18px;
+    margin-top:10px;
+    text-align:center;
+    font-family: 'Great Vibes', cursive;
+}
+
+button{
+    padding:12px 25px;
+    margin:12px;
+    border:none;
+    border-radius:25px;
+    font-size:20px;
+    background:#ff4d6d;
+    color:white;
+    font-family: 'Great Vibes', cursive;
+}
+
+/* Questions */
+.question{
+    margin-top:70px;
+    font-size:28px;
+}
+
+/* Envelope */
+.envelope-box{
+    display:none;
+    margin-top:60px;
+}
+
+.envelope-img{
+    width:260px;
+    cursor:pointer;
+    animation:float 2s ease-in-out infinite alternate;
+}
+
+@keyframes float{
+    from{transform:translateY(0);}
+    to{transform:translateY(-10px);}
+}
+
+/* Letter */
+.letter{
+    display:none;
+    background:#ffd6e0;
+    color:#333;
+    padding:25px;
+    border-radius:18px;
+    margin-top:20px;
+    font-size:22px;
+    animation:glow 1.5s ease;
+}
+
+@keyframes glow{
+    0%{box-shadow:0 0 0px pink;}
+    50%{box-shadow:0 0 30px #ff4d6d;}
+    100%{box-shadow:0 0 10px #ff8fab;}
+}
+
+/* Popup */
+.popup{
+    display:none;
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    color:#ff4d6d;
+    padding:16px 30px;
+    border-radius:30px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* Photos */
+.photo{
+    display:none;
+    margin-top:20px;
+}
+
+.photo img{
+    width:100%;
+    border-radius:18px;
+}
+</style></head><body><!-- Background Music --><audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio><!-- Password Screen --><div id="lockScreen">
+    <h2 style="font-size:36px;">Enter Password ❤️</h2>
+    <input type="password" id="password">
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="error" style="color:red;"></p>
+</div><div class="container"><div class="question" id="q1">
+    Do you love me?
+    <br>
+    <button onclick="next('q1','q2')">Yes</button>
+    <button onclick="next('q1','q2')">No</button>
+</div><div class="question" id="q2" style="display:none;">
+    Would you like to spend your life with Abhinav?
+    <br>
+    <button onclick="next('q2','q3')">Yes</button>
+    <button onclick="next('q2','q3')">No</button>
+</div><div class="question" id="q3" style="display:none;">
+    Will you give Abhinav unlimited Umma?
+    <br>
+    <button onclick="showEnvelope()">Yes</button>
+    <button onclick="showEnvelope()">No</button>
+</div><div class="envelope-box" id="envelopeBox">
+    <img src="envelope.png" class="envelope-img" onclick="openLetter()">
+    <p style="font-size:24px;">Tap the envelope ❤️</p>
+</div><div class="letter" id="letter" onclick="showPopup()">
+Happy Valentine's Day to the girl who's stolen my heart and made it her home ❤️.  
+You're the spark that ignites my world, the laughter that fills my days, and the calm that soothes my soul.  
+From crazy adventures to quiet nights in, every moment with you is a gift 🎁.  
+You're my best friend, my partner in crime, and the love of my life 💖.  
+Here's to the memories we've made, the dreams we're chasing, and the forever we're building together 🌈.  
+I love you for being you, for loving me, and for making life feel like a beautiful adventure ✨.  
+You're the best thing that's ever happened to me, and I'm so grateful to call you mine ❤️.
+<br><br>Tap to continue
+</div><div class="popup" id="popup" onclick="showPhoto()">
+Tap to see memories 📸
+</div><div class="photo" id="photo1">
+    <img src="photo1.jpg">
+</div><div class="photo" id="photo2">
+    <img src="photo2.jpg">
+</div></div><script>
+function checkPassword(){
+    if(document.getElementById("password").value==="arshabhinav"){
+        document.getElementById("lockScreen").style.display="none";
+        document.getElementById("bgMusic").play();
+        startHearts();
+    } else {
+        document.getElementById("error").innerText="Wrong password";
+    }
+}
+
+function next(a,b){
+    document.getElementById(a).style.display="none";
+    document.getElementById(b).style.display="block";
+}
+
+function showEnvelope(){
+    document.getElementById("q3").style.display="none";
+    document.getElementById("envelopeBox").style.display="block";
+}
+
+function openLetter(){
+    document.getElementById("letter").style.display="block";
+}
+
+function showPopup(){
+    document.getElementById("popup").style.display="block";
+}
+
+let step=0;
+function showPhoto(){
+    step++;
+    if(step==1) document.getElementById("photo1").style.display="block";
+    if(step==2) document.getElementById("photo2").style.display="block";
+}
+
+/* Floating hearts generator */
+function startHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="❤️";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.animationDuration=(3+Math.random()*4)+"s";
+        document.body.appendChild(heart);
+        setTimeout(()=>{heart.remove();},7000);
+    },400);
+}
+</script></body>
+</html>
